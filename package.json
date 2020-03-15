@@ -4,22 +4,22 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server/server.js",
+    "start": "node server/server.js",
     "test": "mocha server/**/*.test.js",
-    "test-watch": "nodemon --exec 'npm test'"
+    "test-watch": "nodemon --exec \"npm test\""
   },
   "engines": {
-    "node": "12.14.1"
+    "node": "11.2.0"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "core-util-is": "^1.0.2",
-    "expect": "^25.1.0",
-    "express": "^4.17.1",
-    "mocha": "^7.1.0",
-    "moment": "^2.24.0",
-    "nodemon": "^2.0.2",
-    "socket.io": "^2.3.0"
+    "express": "^4.16.4",
+    "moment": "^2.23.0",
+    "socket.io": "^2.2.0"
+  },
+  "devDependencies": {
+    "expect": "^23.6.0",
+    "mocha": "^5.2.0"
   }
 }
