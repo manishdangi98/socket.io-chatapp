@@ -3,6 +3,8 @@ const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
 
+const {genrateMessage} = require('./utils/message');
+
 // console.log(__dirname + "/../public");
 // console.log(path.join(__dirname, '/../public'));
 
@@ -20,32 +22,26 @@ io.on('connection', (socket)=> {
     console.log('New user just connected');
 
 
-    socket.emit('newMessage', {
-        from: 'Admin',
-        text: 'Welcome to the chat app',
-        createdAT : new Date().getTime()
-    });
+    socket.emit('newMessage', genrateMessage(
+        'Admin', 'Welcome to the chat app'
+    ));
 
-    socket.broadcast.emit('newMessage', {
-        from: 'Admin',
-        text: 'New user Joined',
-        createdAT : new Date().getTime()
-    });
+    socket.broadcast.emit('newMessage', genrateMessage(
+        'Admin', 'New user Joined'
+    ));
 
     
     socket.on('createMessage', (message) => {
         console.log("createMessage", message);
         
-        // io.emit('newMessage',{
-        //     from: message.from,
-        //     text: message.text,
-        //     createdAT: new Date().getTime(),
-        // })
-        socket.broadcast.emit('newMessage',{
-                from: message.from,
-                text: message.text,
-                createdAT: new Date().getTime(),
-            })
+        io.emit('newMessage',genrateMessage(message.from,message.text))
+
+
+        // socket.broadcast.emit('newMessage',{
+        //         from: message.from,
+        //         text: message.text,
+        //         createdAT: new Date().getTime(),
+        //     })
     })
 
     socket.on('disconnect', () =>{
