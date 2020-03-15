@@ -3,7 +3,7 @@ const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
 
-const {genrateMessage} = require('./utils/message');
+const {genrateMessage, genrateLocationMessage} = require('./utils/message');
 
 // console.log(__dirname + "/../public");
 // console.log(path.join(__dirname, '/../public'));
@@ -42,6 +42,11 @@ io.on('connection', (socket)=> {
         //         text: message.text,
         //         createdAT: new Date().getTime(),
         //     })
+    })
+
+    socket.on('createLocationMessage', (coords) =>{
+        io.emit('newLocationMessage',genrateLocationMessage('Admin',
+        coords.lat, coords.lng))
     })
 
     socket.on('disconnect', () =>{

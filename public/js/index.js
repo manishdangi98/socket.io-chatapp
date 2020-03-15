@@ -17,7 +17,19 @@ let socket = io();
         document.querySelector('body').appendChild(li);
     });
 
-   
+
+    socket.on('newLocationMessage', function(message){
+        console.log('newLocationMessage', message);
+        let li = document.createElement('li');
+        let a = document.createElement('a');
+        a.setAttribute('target','_blank')
+        a.setAttribute('href',message.url)
+        a.innerText= 'My current location';
+        li.appendChild(a);
+
+        document.querySelector('body').appendChild(li);
+    });
+
 
     document.querySelector('#submit-btn').addEventListener('click',function(e) {
         e.preventDefault();
@@ -37,7 +49,10 @@ let socket = io();
         }
 
         navigator.geolocation.getCurrentPosition(function(position){
-            console.log(position);
+            socket.emit('createLocationMessage',{
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            });
         }, function(){
             alert('Unable to fetch location');
         })
