@@ -7,11 +7,11 @@ Basic chat app using socket.io,having feature of sharing location, create a room
 Make sure node.js is installed on your system
 To verify
 ```bash
-\$ node --version
+$ node --version
 ```
 ## Running the project
 ```bash
-\$npm start
+$npm start
 ```
 
 ## Added azure pipelines
